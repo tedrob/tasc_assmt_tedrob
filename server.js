@@ -9,7 +9,7 @@ app.use(static(__dirname + '/dist/tasc-assmt-tedrob'));
 
 app.get('/*', function (req, res) {
 
-  res.sendFile(join(__dirname + '/dist/tasc-assmt-tedrob/index.html}}'));
+  res.sendFile(join(__dirname + '/dist/tasc-assmt-tedrob/index.html'));
 });
 
 // Start the app by listening on the default Heroku port

@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12" style="text-align: center">
+    <div class="container" style="padding-left: 3em">
+      <app-shopping-edit></app-shopping-edit>
+      <hr>
+    </div>
+
+    <h3> Items in the Shooping Basket</h3>
+    <ul class="List-group">
+      <a
+       class="list-group-item"
+       style="cursor: pointer"
+       *ngFor="let basketitem of basketitems; let i = index"
+       > {{ basketitem.qty }} {{ basketitem.name }} {{ basketitem.price }}
+      </a>
+    </ul>
+  </div>
+  <hr>
+</div>
+

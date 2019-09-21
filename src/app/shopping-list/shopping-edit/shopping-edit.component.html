@@ -1,0 +1,47 @@
+  <div class="row">
+    <div class="col-xs-12 col-sm-12">
+      <form (ngSubmit)="onAddItem(f)" #f="ngForm">
+        <div class="row">
+          <div class="col.xs-5 col-sm-5 form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" class="form-control" name="name" ngModel required>
+          </div>
+          <div class="col.xs-1 col-sm-1 form-group">
+            <label for="qty">Amount</label>
+            <input
+              type="number"
+              id="qty"
+              class="form-control"
+              name="qty"
+              ngModel
+              required pattern="^[1-9]+[0-9]*$">
+          </div>
+          <div class="col.xs-2 col-sm-2 form-group">
+            <label for="price">Price</label>
+            <input id="price"
+              class="form-control"
+              name="price"
+              ngModel
+              required pattern="^[1-9]*\.[0-9][0-9]$">
+          </div>
+          <div class="col.xs-2 col-sm-2 form-group">
+            <label for="cpc">Candy Popcorn Co.. </label>
+            <input type="checkbox" id="cpc" class="form-control" name="cpc" ngModel>
+          </div>
+          <div class="col.xs-2 col-sm-2 form-group">
+            <label for="cpc">Imported</label>
+            <input type="checkbox" id="imported" class="form-control" name="imported" ngModel>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-12">
+            <button class="btn btn-success" type="submit"
+              [disabled]="!f.valid">{{ editMode ? 'Update' : 'Add' }}</button>&nbsp;
+            <button class="btn btn-danger" type="button" (click)="onDelete()" *ngIf="editMode">Delete</button>&nbsp;
+            <button class="btn btn-primary" type="button" (click)="onClear()">Clear</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+

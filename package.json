@@ -3,12 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "start node server.js",
+    "start": "node server.js",
+    "start2": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "heroku-postbuild": "ng build --prod",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "heroku-postbuild": "ng build --prod"
   },
   "private": true,
   "dependencies": {
@@ -55,6 +56,11 @@
     "tslint": "~5.15.0",
     "typescript": "~3.5.3"
   },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
   "engines": {
     "node": "10.16.3",
     "npm": "6.11.3"

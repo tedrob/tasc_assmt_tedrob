@@ -17,6 +17,7 @@
             <input
               type="number"
               id="qty"
+              style="width: 4.5em"
               class="form-control"
               name="qty"
               ngModel
@@ -24,13 +25,15 @@
           </div>
           <div class="col.xs-1 col-sm-1 form-group">
             <label for="price">Price</label>
-            <input id="price"
+            <input
               type="text"
+              id="price"
+              inputmode="numeric"
               style="width: 6em"
               class="form-control"
               name="price"
               ngModel
-              required pattern="^[1-9]*\.[0-9][0-9]$">
+              required pattern="[+]?[0-9]*[.][0-9][0-9]$">
           </div>
           <div class="col.xs-2 col-sm-2 form-group">
             <label for="cpc">Candy Popcorn Co.. </label>

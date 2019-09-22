@@ -6,15 +6,27 @@
     </div>
 
     <h3> Items in the Shooping Basket</h3>
-    <ul class="List-group">
+    <ul class="List-group" style="text-align: left;">
       <a
        class="list-group-item"
        style="cursor: pointer"
        *ngFor="let basketitem of basketitems; let i = index"
-       > {{ basketitem.qty }} {{ basketitem.name }} {{ basketitem.price }}
+       (click)="onEditItem(i)"
+       >
+        {{ basketitem.qty }} {{ basketitem.name }} {{ basketitem.price }}
       </a>
     </ul>
   </div>
   <hr>
+</div>
+<div class="row">
+  <div class="col-xs-12 col-sm-12">
+    <div class="container">
+      <button
+        type="button"
+        class="btn btn-success"
+        (click)="onCalculate()">Submit Shopping Basket</button>
+    </div>
+  </div>
 </div>
 

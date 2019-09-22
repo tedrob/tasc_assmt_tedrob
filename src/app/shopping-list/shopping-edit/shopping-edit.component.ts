@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 
 import { NgForm } from '@angular/forms';
 
@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './shopping-edit.component.html',
   styleUrls: ['./shopping-edit.component.css']
 })
-export class ShoppingEditComponent implements OnInit {
+export class ShoppingEditComponent implements OnInit, OnDestroy {
   @ViewChild('f', { static: false }) slForm: NgForm;
   subscription: Subscription;
   editMode = false;
@@ -30,17 +30,26 @@ export class ShoppingEditComponent implements OnInit {
           this.editedItem = this.slService.getBasketitem(index);
           this.slForm.setValue({
             name: this.editedItem.name,
-            qty: this.editedItem.qty
+            qty: this.editedItem.qty,
+            price: this.editedItem.price,
+            cpc: this.editedItem.cpc,
+            imported: this.editedItem.imported
           });
         }
       );
   }
 
-  onAddItem(form: NgForm) {
+  onSumit(form: NgForm) {
     const value = form.value;
-    const newBasketiem: ShoppingItem = new ShoppingItem(value.name, value.qty, value.price, value.cpc, value.imported);
-    this.slService.addBasketitem(newBasketiem);
+    const newBasketitem: ShoppingItem = new ShoppingItem(value.name, value.qty, value.price, value.cpc, value.imported);
+    if (this.editMode) {
+      this.slService.updateBasketitem(this.editedItemIndex, newBasketitem);
+    } else {
+      this.slService.addBasketitem(newBasketitem);
     }
+    this.editMode = false;
+    form.reset();
+  }
 
   onClear() {
     this.slForm.reset();
@@ -50,5 +59,9 @@ export class ShoppingEditComponent implements OnInit {
   onDelete() {
     this.slService.deleteBasketitem(this.editedItemIndex);
     this.onClear();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

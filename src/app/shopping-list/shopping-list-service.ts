@@ -10,13 +10,23 @@ export class ShoppingListService {
   ];
 
 
+  getBasketitem(index: number) {
+    return this.basketitems[index];
+  }
+
   addBasketitem(basketitem: ShoppingItem) {
     this.basketitems.push(basketitem);
     this.basketitemsChanged.next(this.basketitems.slice());
   }
 
-  getBasketitem(index: number) {
-    return this.basketitems[index];
+  addBasketitems(basketitems: ShoppingItem[]) {
+    this.basketitems.push(...basketitems);
+    this.basketitemsChanged.next(this.basketitems.slice());
+  }
+
+  updateBasketitem(index: number, newBasketitem: ShoppingItem) {
+    this.basketitems[index] = newBasketitem;
+    this.basketitemsChanged.next(this.basketitems.slice());
   }
 
   deleteBasketitem(index: number) {

@@ -17,7 +17,7 @@ import { ShoppingListService } from './shopping-list/shopping-list-service';
     BrowserModule,
     FormsModule
   ],
-  providers: [],
+  providers: [ShoppingListService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -6,7 +6,7 @@ const express = require('express'),
       app     = express(),
       path    = require('path'),
       cors    = require('cors'),
-      Port    = process.env.Port || 8080,
+      port    = process.env.Port || 8080,
       bodyParser = require('body-parser');
 
 
@@ -17,7 +17,7 @@ express((req, res, next) => {
     'Accept');
     next;
 });
-const tt = 'dist/tasc-assmt-tedrob/index.html/'
+const tt = '/dist/tasc-assmt-tedrob/index.html'
 express(() => {
   console.log('testing', `${tt}`);
 })
@@ -29,15 +29,15 @@ express(() => {
     type: 'application/json'
   }))
   .get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist/tasc-assmt-tedrob/index.html'))
+    res.sendFile(path.join(__dirname, '/dist/tasc-assmt-tedrob/index.html'))
   })
   .use((req, res, next) => {
     const err = new Error('Not Found');
     err.status = 404;
     next(err);
   })
-  .listen(Port, () => {
-    console.log(`listening on ${Port} test ${tt}`);
+  .listen(port, cors(), () => {
+    console.log(`listening on ${port} test ${tt}`);
   })
 
 // app.use(cors());

@@ -11,11 +11,11 @@ express((req, res, next) => {
   next;
 });
 app.use(cors());
-app.use(express.static(path.join(__dirname + `\/dist/tasc-assmt-tedrob/index.html`)));
-app.use(express.static(path.join(__dirname + `\/dist/tasc-assmt-tedrob/favicon.ico`)));
+app.use(express.static(path.join(__dirname, 'dist/tasc-assmt-tedrob/index.html')));
+app.use(express.static(path.join(__dirname, 'dist/tasc-assmt-tedrob/favicon.ico')));
 
-app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname + `\/dist/tasc-assmt-tedrob/index.html`));
+app.get('*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'dist/tasc-assmt-tedrob/index.html'));
 });
 
 app.listen(port, cors(), () => {

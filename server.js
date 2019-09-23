@@ -6,7 +6,9 @@ const express = require('express'),
       app     = express(),
       path    = require('path'),
       cors    = require('cors'),
-      Port    = process.env.Port || 8080;
+      Port    = process.env.Port || 8080,
+      bodyParser = require('body-parser');
+
 
 express((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -35,7 +37,7 @@ express(() => {
     next(err);
   })
   .listen(Port, () => {
-    console.log(`listening on ${port} test ${tt}`);
+    console.log(`listening on ${Port} test ${tt}`);
   })
 
 // app.use(cors());

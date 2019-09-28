@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ShoppingItem } from './../shared/shopping.model';
-import { Subscription } from 'rxjs';
+import { Subscription, from } from 'rxjs';
 import { ShoppingListService } from './shopping-list-service';
+import { CasherItem } from './../shared/cashieritem.model';
+import { Cashier } from './../shared/cashier.model';
 
 @Component({
   selector: 'app-shopping-list',
@@ -12,9 +14,10 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   basketitems: ShoppingItem[] = [];
   private subscription: Subscription;
   private salesprice: number;
-  private totalsalesprice: number;
+  totalsalesprice: number;
   private salestax: number;
-  private totalsalesTax: number;
+  totalsalesTax: number;
+  cashiersform: any[] = [];
 
   constructor(private slService: ShoppingListService) { }
 
@@ -33,7 +36,9 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   }
 
   onCalculate() {
+    this.cashiersform = [];
     console.log('\tOutput:');
+    this.cashiersform.push('Output:');
     const items: ShoppingItem[] = this.slService.getBasketitems();
     if (items.length === 0 ) {
       return;
@@ -53,9 +58,14 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
       console.log('\t\t' + itemsDisplay);
       this.totalsalesTax += this.salesprice - this.salestax;
       this.totalsalesprice += this.salesprice;
+      this.cashiersform.push(itemsDisplay);
     }
     console.log('\t\tSales Taxes ' + parseFloat(totaltax.toString()).toFixed(2));
+    this.cashiersform.push('\t\tSales Taxes ' + parseFloat(totaltax.toString()).toFixed(2));
+
     console.log('\t\tTotal  ' + parseFloat(total.toString()).toFixed(2));
+    this.cashiersform.push('\t\tTotal  ' + parseFloat(total.toString()).toFixed(2));
+
     this.totalsalesTax = 0.00;
     this.totalsalesprice = 0.00;
   }

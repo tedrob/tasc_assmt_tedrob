@@ -2,8 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ShoppingItem } from './../shared/shopping.model';
 import { Subscription, from } from 'rxjs';
 import { ShoppingListService } from './shopping-list-service';
-import { CasherItem } from './../shared/cashieritem.model';
-import { Cashier } from './../shared/cashier.model';
 
 @Component({
   selector: 'app-shopping-list',
@@ -45,10 +43,13 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     }
     let total = 0;
     let totaltax = 0;
+    let totcost = '0.00';
 
     for (const item of items) {
       this.calculateSales(item);
-      const itemsDisplay = `${item.qty} ${item.name} ${parseFloat(this.salesprice.toString()).toFixed(2)}`;
+      totcost = parseFloat(this.salesprice.toString()).toFixed(2);
+      totcost = this.formatNumber(totcost);
+      const itemsDisplay = `${item.qty} ${item.name} $${ totcost}`;
       total += (this.salesprice);
       if ((this.salestax === 0 || this.salestax !== undefined)) {
         totaltax += (this.salestax);
@@ -60,14 +61,24 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
       this.totalsalesprice += this.salesprice;
       this.cashiersform.push(itemsDisplay);
     }
-    console.log('\t\tSales Taxes ' + parseFloat(totaltax.toString()).toFixed(2));
-    this.cashiersform.push('\t\tSales Taxes ' + parseFloat(totaltax.toString()).toFixed(2));
 
-    console.log('\t\tTotal  ' + parseFloat(total.toString()).toFixed(2));
-    this.cashiersform.push('\t\tTotal  ' + parseFloat(total.toString()).toFixed(2));
+    totcost = parseFloat(totaltax.toString()).toFixed(2);
+    totcost = this.formatNumber(totcost);
+    console.log('\t\tSales Taxes $' + totcost);
+    this.cashiersform.push('\t\tSales Taxes $' + totcost);
+
+    totcost = parseFloat(total.toString()).toFixed(2);
+    totcost = this.formatNumber(totcost);
+
+    console.log('\t\tTotal  $' + totcost);
+    this.cashiersform.push('\t\tTotal  $' + totcost);
 
     this.totalsalesTax = 0.00;
     this.totalsalesprice = 0.00;
+  }
+
+  formatNumber(num: string) {
+    return num.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
   }
 
   calculateSales(shoppingItem: ShoppingItem) {
@@ -93,11 +104,9 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
     this.salesprice = saleprice;
     this.salestax = (saleprice - price);
-
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-
 }
